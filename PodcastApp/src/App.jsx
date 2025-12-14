@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import "./index.css";
+import { Header } from "./components/Header.jsx";
+import { Container } from "./components/Container.jsx";
+import { genres } from "./data.js";
+import { fetchPodcasts } from "./api/fetchPodcast.js";
+import PodcastGrid from "./components/PodcastGrid";
+import { PodcastProvider } from "./PodcastContext.jsx";
+import { Pagination } from "./components/Pagination.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+/**
+ * Root React component for the PodcastApp.
+ *
+ * Responsibilities:
+ * - Fetch podcast data from the remote API.
+ * - Manage global loading and error states.
+ * - Provide podcast data to the app via `PodcastProvider`.
+ * - Render the main UI structure:
+ *   - Header
+ *   - Filter & sort controls
+ *   - Podcast grid
+ *   - Pagination controls
+ *
+ * @component
+ * @returns {JSX.Element} The application UI.
+ */
+export default function App() {
+  const [podcasts, setPodcasts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchPodcasts(setPodcasts, setError, setLoading);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    /* PodcastProvider supplies global podcast state to the app,
+     * including filtered, sorted, and paginated results. */
 
-export default App
+    <PodcastProvider initialPodcasts={podcasts}>
+      {/* APP HEADER */}
+      <Header />
+
+      {/* FILTER & SORT CONTROLS */}
+      <Container />
+
+      {/* LOADING STATE */}
+      {loading && (
+        <div className="message-container">
+          <div className="spinner"></div>
+          <p className="loading">Loading podcasts...</p>
+        </div>
+      )}
+
+      {/* ERROR STATE */}
+      {error && (
+        <div className="message-container">
+          <div className="error">
+            Error occurred while fetching podcasts: {error}
+          </div>
+        </div>
+      )}
+
+      {/* PODCAST GRID */}
+      {!loading && !error && (
+        <PodcastGrid podcasts={podcasts} genres={genres} />
+      )}
+
+      {/* PAGINATION CONTROLS */}
+      <Pagination />
+    </PodcastProvider>
+  );
+}
