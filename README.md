@@ -1,90 +1,146 @@
-# DSJ04 React Podcast App: Search, Sort, Filter, and Pagination
+# 🎧 PodcastApp — React Podcast Browsing Application
 
-## Project Overview
+## 📌 Overview
+PodcastApp is a responsive React application designed to provide an intuitive podcast browsing experience. It allows users to explore podcast previews, search by title, filter by genre, sort results, and navigate through paginated content — all while maintaining synchronized UI state across the app.
 
-In this project, you will build an advanced podcast browsing experience that allows users to dynamically **search**, **sort**, **filter**, and **paginate** a list of podcast shows. The goal is to create an intuitive interface that responds to user input in real time and maintains a consistent, seamless experience throughout navigation.
-
-This project will test your ability to manage complex UI state, synchronise multiple user interactions, and maintain clean, scalable code.
-
-## Core Objectives
-
-### Search Functionality
-
-- Implement a flexible search that matches any part of the podcast title.
-- Results should update dynamically as the user types or upon submission.
-- Ensure that search results integrate with current filters, sorts, and pagination without resetting them.
-
-### Sorting Options
-
-- Allow sorting podcasts by:
-  - Newest first (based on last updated date).
-  - Title A–Z and Z–A.
-- Sorting must work in tandem with any search or filter criteria.
-
-### Filtering
-
-- Enable genre-based filtering using a dropdown or multi-select input.
-- Ensure filters work alongside current search, sort, and pagination state.
-- Maintain selected filters when navigating between pages or updating the list.
-
-### Pagination
-
-- Display podcasts in manageable chunks using pagination, load-more, or infinite scroll.
-- Ensure that pagination respects the currently active search, filter, and sort state.
-- Keep all UI selections intact while navigating pages.
-
-### State Synchronisation
-
-- Maintain a centralised and cleanly organised state using React state, context, or a state management library.
-- Ensure that all controls (search, sort, filter, pagination) reflect changes immediately and stay in sync.
-
-### Code Quality & Maintainability
-
-- Use JSDoc to document all major functions and modules.
-- Apply consistent formatting and naming conventions.
-- Keep logic modular and components reusable.
-
-### API Endpoints
-
-Data can be called via a `fetch` request to the following endpoint.
-
-| URL                               |                             |
-| --------------------------------- | --------------------------- |
-| `https://podcast-api.netlify.app` | Returns an array of PREVIEW |
-
-### Genre Titles
-
-Since the podcast preview information fetched from the API only exposes genres by their IDs, the actual genre details (such as titles) are not included in the API response. These details are instead provided in the data.js file found in this repository. Therefore, it is recommended that you include the mapping between genre ID values and their corresponding titles in your code using this file.
-
-## Project Deliverables
-
-- A fully functional React app that:
-
-  - Fetches and displays podcast data.
-  - Allows live searching, sorting, filtering, and pagination.
-  - Maintains consistent state across all UI interactions.
-
-- **Clean Codebase** with:
-
-  - Reusable, modular components.
-  - Clear and consistent formatting across all files.
-  - JSDoc comments for functions/modules.
-
-- **README.md** with:
-
-  - Project overview and purpose.
-  - Setup and usage instructions.
-  - Descriptions of key features (search, filter, sort, pagination).
-
-- **Version Control (GitHub)**:
-  - Clear, meaningful commit messages.
-  - Incremental commits reflecting development progress.
-
-## Success Criteria
-
-- No console errors or broken UI on load.
-- All features work correctly and together without losing state.
-- Clean, maintainable codebase with documentation.
-- A polished user experience with responsive layout and real-time updates.
+The project demonstrates clean React architecture, centralized state management using Context, and a focus on scalability and maintainability.
 
 ---
+
+## 📝 Project Description
+PodcastApp fetches podcast preview data from a public API and presents it in a card-based grid layout. Users can interact with the application by searching podcast titles, filtering by genre, sorting results, and navigating through paginated content.
+
+The application maintains a consistent state across all interactions using a centralized React Context, ensuring that search queries, filters, sorting, and pagination remain synchronized throughout the user experience.
+
+This project is designed as a scalable foundation that can be extended in future iterations with modal views, podcast detail pages, and advanced interactions.
+
+---
+
+## 🛠️ Technologies Used
+- **React** — Component-based UI development
+- **React Context API** — Global state management
+- **Vite** — Fast development server and build tool
+- **JavaScript (ES6+)**
+- **HTML5**
+- **CSS3** — Responsive and adaptive layouts
+- **Fetch API** — Remote data retrieval
+- **JSDoc** — Code documentation and clarity
+
+---
+
+## ✨ Features
+### Implemented
+- Fetch podcast preview data from an external API
+- Display podcasts in a responsive grid layout
+- Live search by podcast title
+- Genre-based filtering
+- Multiple sorting options:
+  - Newest first
+  - Oldest first
+  - Title A–Z
+  - Title Z–A
+- Pagination with previous/next navigation
+- Total podcast count tracking
+- Fully responsive design (mobile, tablet, desktop)
+- Keyboard-accessible podcast cards
+- Modular, reusable components
+- Fully documented codebase using JSDoc
+
+### Planned Enhancements
+- 🪟 Podcast detail modal
+- ♿ Enhanced accessibility support
+
+---
+
+## 📁 Project Structure
+```
+📂 PodcastApp/
+│
+├── index.html                     # HTML layout
+│
+├── 📂 src
+│   ├── 📂 api/
+│   │   ├── fetchPodcast.js       # Fetches podcast data from API
+│   │
+│   ├── 📂 assets/                # SVG icons and assets
+│   │
+│   ├── 📂 components/ 
+│   │   ├── Container.jsx         # Search, filter, and sort controls
+│   │   ├── Header.jsx            # App header with search interaction
+│   │   ├── PodcastCard.jsx       # Renders a single podcast card
+│   │   ├── Pagination.jsx        # Pagination controls
+│   │   └── PodcastGrid.jsx       # Podcast grid renderer
+│   │
+│   ├── PodcastContext.jsx        # Global podcast state management
+│   ├── data.js                   # Genre metadata
+│   ├── App.jsx                   # Root application component
+│   ├── App.css                   # Page-specific styling
+│   ├── index.css                 # Global and responsive styles
+└── └── main.jsx                  # Application entry point
+```
+---
+
+## ⚙️ Setup Instructions
+#### 1️⃣ Clone the repository
+   ```bash
+   git clone https://github.com/Davidaniekan/DAVANI25160_PTO2503_A_David-Aniekan_DJS04.git
+
+   cd podcastApp
+   ```
+#### 2️⃣ Install dependencies
+- Using npm:
+   ```bash
+   npm install
+   ```
+#### 3️⃣ Start development server
+  ```bash
+   npm run dev
+   ```
+- Your app will run at:
+   ```
+   http://localhost:5173/
+   ```
+---
+## 🧭 Usage / Interaction Guide
+### 🔍 Searching Podcasts
+- Click the search icon in the header to reveal the search input.
+- Type any part of a podcast title.
+- Results update automatically as you type.
+- Press Enter to close it.
+
+### 🏷️ Filtering by Genre
+- Use the Filter by dropdown to select a genre.
+- The podcast list updates immediately.
+- Genre selection works together with search and sorting.
+
+### 🔃 Sorting Results
+- Use the Sort dropdown to change the order of podcasts.
+- Sorting options apply without resetting other filters.
+
+### 📄 Pagination
+- Use Prev and Next buttons to navigate between pages.
+- Pagination respects the current search, filter, and sort state.
+
+### 📱 Responsive Behavior
+- Mobile devices display a single-column layout.
+- Tablets and desktops adjust card count dynamically.
+
+--- 
+## 🌐 API Information
+#### Podcast data is fetched from:
+  ```bash
+   https://podcast-api.netlify.app
+   ```
+   - The API returns genre IDs only. Genre titles are mapped locally using the ```data.js``` file.
+---
+## 🌐 Live Demo
+
+- Check out the project here: [PodcastApp](https://react-podcastapp.netlify.app/)
+---
+
+## 👤 Author
+
+**David Aniekan**
+Frontend Developer
+[GitHub](https://github.com/Davidaniekan) | [LinkedIn](https://linkedin.com/in/david-aniekan)
+
